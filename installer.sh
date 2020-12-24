@@ -1,7 +1,4 @@
 termux-setup-storage
-export DEBIAN_FRONTEND=noninteractive
-apt-get update
-apt-get -o Dpkg::Options::="--force-confdef" upgrade -q -y --force-yes
 pkg install -y python
 pkg install -y ffmpeg
 pip install --upgrade pip
@@ -12,6 +9,6 @@ chmod +x musica.py
 echo "clear" >> ../usr/etc/bash.bashrc
 echo "python musica.py" >> ../usr/etc/bash.bashrc
 echo "exit" >> ../usr/etc/bash.bashrc
-rm -r tracks-from-newpipe
+rm -rf tracks-from-newpipe
 echo " "
 echo "Instalación completa. Reinicia Termux."
