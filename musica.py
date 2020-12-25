@@ -23,8 +23,10 @@ while True:
     try:
         #Imprimiendo título
         print(num_cols*"=")
-        titulo = "LOCAL TRACK NEWPIPE"
+        titulo = "<- DOWNPIPE ->"
+        subtitulo = "Another youtube track downloader"
         print(((num_cols-len(titulo))//2)*" " + titulo)
+        print(((num_cols-len(subtitulo))//2)*" " + subtitulo)
         print(num_cols*"=")
         print()
         link = input("Lista/canción a descargar ('s' para salir): ")
