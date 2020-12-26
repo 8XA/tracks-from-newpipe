@@ -9,7 +9,6 @@ def update():
     local = os.popen('cd tracks-from-newpipe && git checkout master && git log --oneline').read()
     os.system("clear")
     print("local:", local)
-    print()
     i = input("...")
     if "Your branch is behind" in local[:50]:
         print("Actualizando script...")
