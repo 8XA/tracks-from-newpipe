@@ -41,7 +41,7 @@ try:
 
     #Imprime listas locales
     if len(local_playlists) > 0:
-        print("LISTAS LOCALES")
+        print("\nLISTAS LOCALES")
         for x in range(len(local_playlists)):
             print(x+1, local_playlists[x][1][:num_cols-(len(str(x+1))+1)])
         print()
@@ -79,6 +79,7 @@ while True:
     try:
         if db_existe:
             print("Para descargar una lista de NewPipe, solo ingrese el número que le corresponde. De lo contrario solo ingrese una URL.")
+            print(num_cols*"=")
         link = input("Lista/canción a descargar ('s' para salir): ")
         if link.upper() == "S":
             break
