@@ -9,13 +9,19 @@ curses.endwin()
 os.system("stty sane && clear")
 
 
+#Formatos
+formatos = ("mp3","m4a")
+if not os.path.isfile("formatos.txt"):
+    os.system("echo 0 > formatos.txt")
+
+
 #Imprimiendo título
 print(num_cols*"=")
 titulo = "<- DOWNPIPE ->"
 subtitulo = "Yet another youtube track downloader"
 print(((num_cols-len(titulo))//2)*" " + titulo)
 print(((num_cols-len(subtitulo))//2)*" " + subtitulo)
-print(num_cols*"=" + "\n")
+print(num_cols*"=")
 
 
 #Explora la base de datos de NewPipe
@@ -47,22 +53,40 @@ try:
             print(x+1+len(local_playlists), youtube_playlists[x][2][:num_cols-(len(str(x+1+len(local_playlists)))+1)])
         print()
     
-    print(num_cols*"=" + "\n")
+    print(num_cols*"=")
     db_existe = True
 
 except:
     db_existe = False
 
 
+#Imprime formatos
+print("FORMATOS")
+with open("formatos.txt") as f:
+    num_formato = int(f.readlines()[0])
+for elemento in formatos:
+    if formatos[num_formato] == elemento:
+        seleccion = "<-"
+    else:
+        seleccion = ""
+    print(elemento,seleccion)
+print(num_cols*"=")
+
+
 #while es solo para poder hacer break cuando lo requiera, no pretende hacer un bucle
 while True:
+    #Selección de tarea a ejecutar
     try:
-        #Selección de tarea a ejecutar
         if db_existe:
             print("Para descargar una lista de NewPipe, solo ingrese el número que le corresponde. De lo contrario solo ingrese una URL.")
         link = input("Lista/canción a descargar ('s' para salir): ")
         if link.upper() == "S":
             break
+        #Si es un cambio de formato
+        elif link.lower() in formatos:
+            os.system("echo " + str(formatos.index(link.lower())) + " > formatos.txt")
+            break
+
         carpeta = input("\nNombre de la carpeta ('s' para salir): ")
         if carpeta.upper() == "S":
             break
@@ -76,8 +100,8 @@ while True:
         #Verificando que youtube-dl y pip estén actualizados
         os.system("clear")
         print("Verificando actualizaciones por modificaciones en youtube...\n\n")
-        #os.system('pip install --upgrade pip')
-        #os.system('pip install --upgrade youtube-dl')
+        os.system('pip install --upgrade pip')
+        os.system('pip install --upgrade youtube-dl')
         os.system("clear")
         
         
@@ -103,7 +127,7 @@ while True:
                 link = "'" + "' '".join([enlace[2] for enlace in URLs if enlace[0] in [video[1] for video in IDs_totales if video[0] == ID]]) + "'"
 
             #Si es una lista de youtube
-            elif int(link) <= len(youtube_playlists):
+            elif int(link) <= len(youtube_playlists) + len(local_playlists):
                 link = "'" + youtube_playlists[int(link)-len(local_playlists)-1][3] + "'"
 
         #Si es cualquier otra lista
@@ -118,14 +142,14 @@ while True:
 
         #Descargando pistas
         print("Descargando música...\n\n")
-        os.system('youtube-dl --ignore-errors --extract-audio --audio-format mp3 -o "storage/music/' + carpeta + '/%(title)s.%(ext)s" ' + link)
+        os.system('youtube-dl --ignore-errors --extract-audio --audio-format ' + formatos[num_formato] + ' -o "storage/music/' + carpeta + '/%(title)s.%(ext)s" ' + link)
         i = input("\n\nPresiona enter para salir.")
         break
 
 
     except Exception as e:
         os.system("clear")
-        print("\nAlgo salió mal, probablemente la lista tenía problemas, como quiera házsela de pedo a Saúl...\n\n")
+        print("\nVaya, algo salió mal...\n\n")
         print(num_cols*"-")
         print("\nEste fue el error:\n\n" + str(e) + "\n")
         print(num_cols*"-")
