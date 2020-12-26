@@ -11,6 +11,7 @@ def update():
     print("local:", local)
     print()
     print("remoto:",remoto)
+    print()
     i = input("...")
     if remoto not in local:
         print("Actualizando script...")
