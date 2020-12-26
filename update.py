@@ -11,7 +11,7 @@ def update():
     print("local:", local)
     print()
     i = input("...")
-    if "Your branch is behind" == local[:50]:
+    if "Your branch is behind" in local[:50]:
         print("Actualizando script...")
         os.system('rm -rf update')
         clonar = os.system('git clone https://github.com/8XA/tracks-from-newpipe.git update')
