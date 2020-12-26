@@ -5,15 +5,15 @@ import os, time
 def update():
     os.system("clear")
     print("Verificando actualizaciones de script...")
-    remoto = os.popen('cd tracks-from-newpipe && git fetch origin master && git checkout remotes/origin/master && git log --oneline').read()
-    local = os.popen('cd tracks-from-newpipe && git checkout master && git log --oneline').read()
+    #remoto = os.popen('cd tracks-from-newpipe && git fetch origin master && git checkout remotes/origin/master && git log --oneline').read()
+    local = os.popen('cd tracks-from-newpipe && git fetch origin master && git log --oneline').read()
     os.system("clear")
     print("local:", local)
     print()
-    print("remoto:",remoto)
+    #print("remoto:",remoto)
     print()
     i = input("...")
-    if remoto not in local:
+    if "Your branch is behind" == local[:20]:
         print("Actualizando script...")
         os.system('rm -rf update')
         clonar = os.system('git clone https://github.com/8XA/tracks-from-newpipe.git update')
