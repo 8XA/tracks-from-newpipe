@@ -11,7 +11,7 @@ def update():
     print("local:", local)
     print()
     print("remoto:",remoto)
-    i = inpiut("...")
+    i = input("...")
     if local != remoto:
         print("Actualizando script...")
         os.system('rm -rf update')
