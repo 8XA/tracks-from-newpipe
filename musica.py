@@ -1,5 +1,12 @@
 #!/bin/env python
-import os, curses, sqlite3, string
+import os, curses, sqlite3, string, sys
+from update import update
+
+
+#Verificando actualizaciones del script
+if update() == 1:
+    i = input("Debes reiniciar Termux. Presiona Enter para salir")
+    sys.exit()
 
 
 #Determinando el número de caracteres por línea
