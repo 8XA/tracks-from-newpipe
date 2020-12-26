@@ -5,14 +5,7 @@ import os, time
 def update():
     os.system("clear")
     print("Verificando actualizaciones de script...")
-    #remoto = os.popen('cd tracks-from-newpipe && git fetch origin master && git checkout remotes/origin/master && git log --oneline').read()
     local = os.popen('cd tracks-from-newpipe && git fetch origin master && git log --oneline').read()
-    os.system("clear")
-    print("local:", local)
-    print()
-    #print("remoto:",remoto)
-    print()
-    i = input("...")
     if "Your branch is behind" == local[:20]:
         print("Actualizando script...")
         os.system('rm -rf update')
