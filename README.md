@@ -1,6 +1,6 @@
 # tracks-from-newpipe
 
-This script help you to download mp3 playlists from Youtube using youtube-dl. With a near future version you'll be able to download the local newpipe playlists too. | Este script te ayudará a descargar listas de reproducción en mp3 de Youtube, usando youtube-dl. En una próxima futura versión podrás descargar también las listas de reproducción locales de NewPipe.
+This script will help you to download the playlist tracks from Youtube and NewPipe using youtube-dl. | Este script te ayudará a descargar las pistas de las listas de reproducción de Youtube y NewPipe, usando youtube-dl.
 
 ---
 
@@ -15,3 +15,21 @@ It was tested on an android device. | El proceso fue testeado en un dispositivo 
 
 - In the middle of the process, the script will ask you for storage permission. Accept it. | En medio del proceso, el script le pedirá permiso de almacenamiento. Acéptelo.
 - When the process is done, restart termux. The script will start automatically, so you can use it. | Cuando el proceso finalice, reinicie termux. El script iniciará automaticamente, entonces puede usarlo.
+
+- Si quiere visualizar las listas de NewPipe, debe exportar su base de datos:
+    - Opciones
+    - Ajustes
+    - Contenido
+    - Exportar base de datos
+    - Aceptar
+    - Del archivo exportado, extraer newpipe.db en la carpeta de descargas
+    - Reiniciar Termux
+
+- If you want to view the NewPipe lists, you have to export their database:
+    - Options
+    - Settings
+    - Content
+    - Export database
+    - OK
+    - You have to extract the newpipe.db from the exported file and put it in the Download folder
+    - Restart Termux
