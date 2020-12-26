@@ -18,7 +18,8 @@ def update():
             return 1
 
     else:
-        print("Nada para hacer...")
+        os.system("clear")
+        print("Script ya actualizado. Nada para hacer...")
         time.sleep(1)
         os.system("clear")
         return 0
