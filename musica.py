@@ -2,19 +2,10 @@
 import os, curses
 
 #Determinando el número de caracteres por línea
-num_cols = 0
-if os.path.isfile("c.txt") == True:
-    with open('c.txt') as c:
-        lineas = c.readlines()
-        num_cols = int(lineas[0])
-else:
-    screen = curses.initscr() 
-    num_cols = screen.getmaxyx()[1]
-    curses.endwin()
-    os.system("stty sane")
-    c = open("c.txt","w")
-    c.write(str(num_cols))
-    c.close
+screen = curses.initscr() 
+num_cols = screen.getmaxyx()[1]
+curses.endwin()
+os.system("stty sane")
 
 
 os.system("clear")
@@ -24,7 +15,7 @@ while True:
         #Imprimiendo título
         print(num_cols*"=")
         titulo = "<- DOWNPIPE ->"
-        subtitulo = "Another youtube track downloader"
+        subtitulo = "Yet another youtube track downloader"
         print(((num_cols-len(titulo))//2)*" " + titulo)
         print(((num_cols-len(subtitulo))//2)*" " + subtitulo)
         print(num_cols*"=")
