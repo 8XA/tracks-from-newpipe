@@ -5,7 +5,7 @@ from update import update
 
 #Verificando actualizaciones del script
 if update() == 1:
-    i = input("Debes reiniciar Termux. Presiona Enter para salir")
+    i = input("Debes reiniciar Termux.\nPresiona Enter para salir.")
     sys.exit()
 
 
