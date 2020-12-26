@@ -5,8 +5,8 @@ import os, time
 def update():
     os.system("clear")
     print("Verificando actualizaciones de script...")
-    local = os.popen('git checkout master && git log --oneline').read()
-    remoto = os.popen('git fetch origin master && git checkout remotes/origin/master && git log --oneline').read()
+    local = os.popen('cd tracks-from-newpipe && git checkout master && git log --oneline').read()
+    remoto = os.popen('cd tracks-from-newpipe && git fetch origin master && git checkout remotes/origin/master && git log --oneline').read()
     if local != remoto:
         print("Actualizando script...")
         os.system('rm -rf update')
