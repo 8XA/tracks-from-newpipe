@@ -9,8 +9,9 @@ def update():
     local = os.popen('cd tracks-from-newpipe && git checkout master && git log --oneline').read()
     os.system("clear")
     print("local:", local)
+    print()
     i = input("...")
-    if "Your branch is behind" == local[:21]:
+    if "Your branch is behind" == local[:50]:
         print("Actualizando script...")
         os.system('rm -rf update')
         clonar = os.system('git clone https://github.com/8XA/tracks-from-newpipe.git update')
