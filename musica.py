@@ -18,10 +18,10 @@ if not os.path.isfile("settings/settings"):
 #VERIFICANDO ACTUALIZACIONES DEL SCRIPT
 lista_ac = ("siac","noac") #Actualizar, o no actualizar
 if not os.path.isfile('settings/actualizar'):
-    os.system('mkdir settings && echo "<-\n " > settings/actualizar')
+    os.system('mkdir settings && echo "<=\n " > settings/actualizar')
 with open("settings/actualizar") as ac:
     selec_actualizacion = ac.readlines()
-if selec_actualizacion[0][:-1] == "<-": 
+if selec_actualizacion[0][:-1] == "<=": 
     if update() == 1:
         i = input("Debes reiniciar Termux.\nPresiona Enter para salir.")
         sys.exit()
@@ -104,7 +104,7 @@ def pantalla():
             actualizacion, selec_ac = "",""
 
         if formatos[num_codec] == formatos[x]:
-            selec_form = "<-"
+            selec_form = "<="
         else:
             selec_form = ""
         print(formatos[x],selec_form,"\t\t" + actualizacion, selec_ac[:-1])
@@ -133,9 +133,9 @@ try:
         #Si es un cambio en la actualizacion
         elif link.lower() in lista_ac:
             if link.lower() == "siac":
-                os.system('echo "<-\n " > settings/actualizar')
+                os.system('echo "<=\n " > settings/actualizar')
             else:
-                os.system('echo " \n<-" > settings/actualizar')
+                os.system('echo " \n<=" > settings/actualizar')
         pantalla()
 
     carpeta = input("\nNombre de la carpeta ('s' para salir): ")
@@ -144,8 +144,10 @@ try:
     elif carpeta == "":
         print(num_cols*"-" + "\n")
         i = input("Las pistas se guardarán directamente en tu carpeta de música debido a que no especificaste un nombre de carpeta. Deseas continuar (Sí: 's', No: solo Enter)? ")
-        if i.upper != "S":
+        if i.upper() != "S":
             salir()
+    else:
+        carpeta+="/"
     
     
     #VERIFICANDO QUE YOUTUBE-DL Y PIP ESTÉN ACTUALIZADOS
@@ -192,7 +194,7 @@ try:
 
     #DESCARGANDO PISTAS
     print("Descargando música...\nPara cancelar la descarga: Ctrl+c\n\n" + num_cols*"=")
-    os.system('youtube-dl --ignore-errors --extract-audio --audio-format ' + formatos[num_codec] + ' -o "storage/music/' + carpeta + '/%(title)s.%(ext)s" ' + link)
+    os.system('youtube-dl --ignore-errors --extract-audio --audio-format ' + formatos[num_codec] + ' -o "storage/music/' + carpeta + '%(title)s.%(ext)s" ' + link)
     print(num_cols*"=")
     salir()
 
