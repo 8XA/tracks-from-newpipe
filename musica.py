@@ -20,7 +20,7 @@ def salir():
 
 #VERIFICA EL PERMISO DE ALMACENAMIENTO
 if not os.path.isdir("storage"):
-    os.system("termux-setup-storage")
+    os.popen("termux-setup-storage")
     if not os.path.isdir("storage"):
         print("Los permisos de almacenamiento son necesarios para guardar las descargas.")
         salir()
