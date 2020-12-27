@@ -11,15 +11,15 @@ def salir():
 
 #FORMATOS
 formatos = ("mp3","m4a")
-if not os.path.isfile("settings/settings.txt"):
-    os.system("echo 0 > settings/settings.txt")
+if not os.path.isfile("settings/settings"):
+    os.system("echo 0 > settings/settings")
 
 
 #VERIFICANDO ACTUALIZACIONES DEL SCRIPT
 lista_ac = ("siac","noac") #Actualizar, o no actualizar
-if not os.path.isfile('settings/actualizar.txt'):
-    os.system('mkdir settings && echo "<-\n " > settings/actualizar.txt')
-with open("settings/actualizar.txt") as ac:
+if not os.path.isfile('settings/actualizar'):
+    os.system('mkdir settings && echo "<-\n " > settings/actualizar')
+with open("settings/actualizar") as ac:
     selec_actualizacion = ac.readlines()
 if selec_actualizacion[0][:-1] == "<-": 
     if update() == 1:
@@ -86,12 +86,16 @@ def pantalla():
 
 
     #IMPRIME CONFIGURACIONES
+    try:
+        with open("settings/settings") as f:
+            num_codec = int(f.readlines()[0])
+        with open("settings/actualizar") as ac:
+            selec_actualizacion = ac.readlines()
+    except:
+        os.system("clear")
+        print("Configuración inicial hecha. Vuelva a iniciar Termux.")
+        salir()
     print("FORMATOS\tSCRIPT UPDATES")
-    with open("settings/settings.txt") as f:
-        num_codec = int(f.readlines()[0])
-    with open("settings/actualizar.txt") as ac:
-        selec_actualizacion = ac.readlines()
-
     for x in range(len(formatos)):
         if x <= 1:
             actualizacion = lista_ac[x]
@@ -124,14 +128,14 @@ try:
             salir()
         #Si es un cambio de formato
         elif link.lower() in formatos:
-            os.system("echo " + str(formatos.index(link.lower())) + " > settings/settings.txt")
+            os.system("echo " + str(formatos.index(link.lower())) + " > settings/settings")
 
         #Si es un cambio en la actualizacion
         elif link.lower() in lista_ac:
             if link.lower() == "siac":
-                os.system('echo "<-\n " > settings/actualizar.txt')
+                os.system('echo "<-\n " > settings/actualizar')
             else:
-                os.system('echo " \n<-" > settings/actualizar.txt')
+                os.system('echo " \n<-" > settings/actualizar')
         pantalla()
 
     carpeta = input("\nNombre de la carpeta ('s' para salir): ")
