@@ -6,9 +6,14 @@ from update import update
 #FUNCIÓN SALIR
 def salir():
     #Cerrando base de datos
-    if db_existe:
-        global conexion
-        conexion.close()
+    try:
+        global db_existe
+        if db_existe:
+            global conexion
+            conexion.close()
+    except:
+        pass
+    #Finalizar script
     i = input("\nPresiona enter para salir.")
     sys.exit()
 
@@ -27,8 +32,8 @@ with open("settings/actualizar") as ac:
     selec_actualizacion = ac.readlines()
 if selec_actualizacion[0][:-1] == "<=": 
     if update() == 1:
-        i = input("Debes reiniciar Termux.\nPresiona Enter para salir.")
-        sys.exit()
+        print("Debes reiniciar Termux.")
+        salir()
 
 
 #DETERMINANDO EL NÚMERO DE CARACTERES POR LÍNEA
@@ -98,7 +103,7 @@ def pantalla():
     except:
         os.system("clear")
         print("Instalación y configuración inicial hecha. Vuelve a iniciar Termux.")
-        salir()
+        sys.exit()
     print("FORMATOS\tSCRIPT UPDATES")
     for x in range(len(formatos)):
         if x <= 1:
@@ -129,7 +134,7 @@ try:
             print(num_cols*"=")
         link = input("\nLista/canción a descargar ('s' para salir): ")
         if link.upper() == "S":
-            salir()
+            sys.exit()
         #Si es un cambio de formato
         elif link.lower() in formatos:
             os.system("echo " + str(formatos.index(link.lower())) + " > settings/settings")
@@ -144,12 +149,12 @@ try:
 
     carpeta = input("\nNombre de la carpeta ('s' para salir): ")
     if carpeta.upper() == "S":
-        salir()
+        sys.exit()
     elif carpeta == "":
         print(num_cols*"-" + "\n")
-        i = input("Las pistas se guardarán directamente en tu carpeta de música debido a que no especificaste un nombre de carpeta. Deseas continuar (Sí: 's', No: solo Enter)? ")
+        i = input("Las pistas se guardarán directamente en tu carpeta de música debido a que no especificaste un nombre de carpeta. Deseas continuar (Sí: 's', Salir: Enter)? ")
         if i.upper() != "S":
-            salir()
+            sys.exit()
     else:
         carpeta+="/"
     
