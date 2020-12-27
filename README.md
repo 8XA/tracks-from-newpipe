@@ -33,3 +33,15 @@ It was tested on an android device. | El proceso fue testeado en un dispositivo 
     - OK
     - You have to extract the newpipe.db from the exported file and put it in the Download folder
     - Restart Termux
+
+So you can do these actions:
+1.- Download a track or a track list putting the YouTube list URL or the track YouTube URL.
+2.- Choose between download formats typing "mp3" or "m4a" (withouth quotation marks).
+3.- Choose between update the script or not when a new github commit is available ("siac" or "noac" without quotation marks).
+4.- Download a NewPipe track list typing the playlist number.
+
+Entonces usted puede ejecutar las siguientes acciones:
+1.- Descargar una pista o una lista de reproducción, poniendo la URL de la lista o de la pista.
+2.- Elegir entre los formatos de audio escribiendo "mp3" o "m4a" (sin comillas) según corresponda.
+3.- Elegir entre actualizar el script cuando haya un commit disponible, o no ("siac" o "noac", sin comillas).
+4.- Descargar una lista de reproducción de NewPipe escribiendo el número de la lista de reproducción.
