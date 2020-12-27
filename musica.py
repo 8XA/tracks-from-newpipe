@@ -5,6 +5,10 @@ from update import update
 
 #FUNCIÓN SALIR
 def salir():
+    #Cerrando base de datos
+    if db_existe:
+        global conexion
+        conexion.close()
     i = input("\nPresiona enter para salir.")
     sys.exit()
 
@@ -185,11 +189,6 @@ try:
     #Si es cualquier otra lista
     else:
         link = "'" + link + "'"
-
-
-    #CERRANDO BASE DE DATOS
-    if db_existe:
-        conexion.close()
 
 
     #DESCARGANDO PISTAS
