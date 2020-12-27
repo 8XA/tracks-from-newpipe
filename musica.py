@@ -18,9 +18,18 @@ def salir():
     sys.exit()
 
 
+#VERIFICA EL PERMISO DE ALMACENAMIENTO
+if not os.path.isdir("storage"):
+    os.system("termux-setup-storage")
+    if not os.path.isdir("storage"):
+        print("Los permisos de almacenamiento son necesarios para guardar las descargas.")
+        salir()
+
+
 #FORMATOS
 formatos = ("mp3","m4a")
-os.system('mkdir settings')
+if not os.path.isdir("settings"):
+    os.system('mkdir settings')
 if not os.path.isfile("settings/settings"):
     os.system('echo 0 > settings/settings')
 

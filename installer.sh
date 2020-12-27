@@ -1,5 +1,4 @@
 set -e
-termux-setup-storage
 pkg install -y python
 pkg install -y ffmpeg
 pip install --upgrade pip
