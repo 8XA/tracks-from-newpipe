@@ -8,5 +8,4 @@ pip install youtube-dl
 echo "clear" >> ../usr/etc/bash.bashrc
 echo "python tracks-from-newpipe/musica.py" >> ../usr/etc/bash.bashrc
 echo "exit" >> ../usr/etc/bash.bashrc
-echo " "
-echo "Instalación completa. Reinicia Termux."
+python tracks-from-newpipe/musica.py
