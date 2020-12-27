@@ -20,14 +20,15 @@ def salir():
 
 #FORMATOS
 formatos = ("mp3","m4a")
+os.system('mkdir settings')
 if not os.path.isfile("settings/settings"):
-    os.system("echo 0 > settings/settings")
+    os.system('echo 0 > settings/settings')
 
 
 #VERIFICANDO ACTUALIZACIONES DEL SCRIPT
 lista_ac = ("siac","noac") #Actualizar, o no actualizar
 if not os.path.isfile('settings/actualizar'):
-    os.system('mkdir settings && echo "<=\n " > settings/actualizar')
+    os.system('echo "<=\n " > settings/actualizar')
 with open("settings/actualizar") as ac:
     selec_actualizacion = ac.readlines()
 if selec_actualizacion[0][:-1] == "<=": 
@@ -95,15 +96,10 @@ def pantalla():
 
 
     #IMPRIME CONFIGURACIONES
-    try:
-        with open("settings/settings") as f:
-            num_codec = int(f.readlines()[0])
-        with open("settings/actualizar") as ac:
-            selec_actualizacion = ac.readlines()
-    except:
-        os.system("clear")
-        print("Instalación y configuración inicial hecha. Vuelve a iniciar Termux.")
-        sys.exit()
+    with open("settings/settings") as f:
+        num_codec = int(f.readlines()[0])
+    with open("settings/actualizar") as ac:
+        selec_actualizacion = ac.readlines()
     print("FORMATOS\tSCRIPT UPDATES")
     for x in range(len(formatos)):
         if x <= 1:
@@ -126,7 +122,6 @@ pantalla()
 
 #SELECCIÓN DE TAREA A EJECUTAR
 try:
-        
     link = "siac" #Es solo para inicializar la variable
     while link in lista_ac or link in formatos:
         if db_existe:
