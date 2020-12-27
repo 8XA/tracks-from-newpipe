@@ -93,7 +93,7 @@ def pantalla():
             selec_actualizacion = ac.readlines()
     except:
         os.system("clear")
-        print("Configuración inicial hecha. Vuelva a iniciar Termux.")
+        print("Instalación y configuración inicial hecha. Vuelce a iniciar Termux.")
         salir()
     print("FORMATOS\tSCRIPT UPDATES")
     for x in range(len(formatos)):
