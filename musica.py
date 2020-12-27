@@ -74,7 +74,7 @@ def pantalla():
         #Abriendo la base de datos
         if os.path.isfile(db):
             conexion = sqlite3.connect(db)
-            cursor = conexion.cursor()
+        cursor = conexion.cursor()
 
         #Nombres e identificadores de listas locales
         cursor.execute('SELECT * from playlists')
