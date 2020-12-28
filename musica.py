@@ -133,7 +133,7 @@ pantalla()
 #SELECCIÓN DE TAREA A EJECUTAR
 try:
     link = "siac" #Es solo para inicializar la variable
-    while link in lista_ac or link in formatos:
+    while link.lower() in lista_ac or link.lower() in formatos:
         if db_existe:
             print("Para descargar una lista de NewPipe, solo ingrese el número que le corresponde. De lo contrario solo ingrese una URL.")
             print(num_cols*"=")
