@@ -148,7 +148,7 @@ try:
             os.system("clear")
             titulo_ayuda = "MANUAL DE USUARIO"
             print(num_cols*"=" + "\n" + (num_cols-len(titulo_ayuda))//2*" " + titulo_ayuda + "\n" + num_cols*"=" + "\n")
-            with open("ayuda.txt", "r") as ayuda:
+            with open("tracks-from-newpipe/ayuda.txt", "r") as ayuda:
                 texto = ayuda.readlines()
             for linea in texto:
                 print(linea)
