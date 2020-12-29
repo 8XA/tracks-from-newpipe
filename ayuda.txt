@@ -18,11 +18,11 @@ Primero debes guardar la base de datos 'newpipe.db' en tu carpeta de Descargas. 
     - Contenido
     - Exportar base de datos
     - Aceptar
-    - Ve a la carpeta donde se guardó el comprimido y extrae el archivo 'newpipe.db' en la carpeta Descargas.
+    - Ve a la carpeta donde se guardó el comprimido y extrae el archivo 'newpipe.db' en la carpeta 'Descargas'.
 Reinicia Termux o refresca pantalla, ahora verás tus listas.
 ----------
 DESCARGAR LISTA DE NEWPIPE:
-Las listas aparecerán numeradas. Para descargar una lista ingresa el número que le corresponde y da Enter. Te pedirá un nombre de carpeta, después de esto procederá a descargar. Al descargar, encontrarás tu lista en la carpeta Música.
+Las listas aparecerán numeradas. Para descargar una lista ingresa el número que le corresponde y da Enter. Te pedirá un nombre de carpeta, después de esto procederá a descargar. Al descargar, encontrarás tu lista en la carpeta 'Música'.
 ----------
 DESCARGAR PISTAS DE YOUTUBE:
-Ingresa la URL de una lista de reproducción o bien la URL de un solo video y da Enter. Te pedirá un nombre de carpeta, después de esto procederá a descargar. Al descargar, encontrarás tu lista en la carpeta Música.
+Ingresa la URL de una lista de reproducción o bien la URL de un solo video y da Enter. Te pedirá un nombre de carpeta, después de esto procederá a descargar. Al descargar, encontrarás tu lista en la carpeta 'Música'.
