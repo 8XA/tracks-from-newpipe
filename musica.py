@@ -170,7 +170,7 @@ try:
     if carpeta.upper() == "S":
         sys.exit()
     elif carpeta == "":
-        i = input("----------\nLas pistas se guardarán directamente en tu carpeta de música debido a que no especificaste un nombre de carpeta. Estás de acuerdo (Sí: 's', Salir: Enter)? ")
+        i = input("----------\nLas pistas se guardarán directamente en tu carpeta de música debido a que no especificaste un nombre de carpeta. Estás de acuerdo (Sí: 's' | Salir: Enter)? ")
         if i.upper() != "S":
             sys.exit()
     else:
