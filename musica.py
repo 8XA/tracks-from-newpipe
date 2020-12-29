@@ -61,7 +61,7 @@ def pantalla():
 
     #IMPRIMIENDO TÍTULO
     print(num_cols*"=")
-    titulo = "<- DOWNPIPE ->"
+    titulo = "<- DOWNPIPE 1.01 ->"
     subtitulo = "Yet another youtube track downloader"
     print(((num_cols-len(titulo))//2)*" " + titulo)
     print(((num_cols-len(subtitulo))//2)*" " + subtitulo)
@@ -83,6 +83,10 @@ def pantalla():
         #Nombres y URLs de listas de youtube
         cursor.execute('SELECT * from remote_playlists')
         youtube_playlists = cursor.fetchall()
+
+        #Instrucción para descargas newpipe
+        if len(local_playlists) > 0 or len(youtube_playlists) > 0:
+            print("Para descargar una lista de NewPipe sólo ingresa el número de lista:")
 
         #Imprime listas locales
         if len(local_playlists) > 0:
@@ -126,20 +130,31 @@ def pantalla():
     print(num_cols*"=")
 
 
-#INICIA IMPRESIÓN DE PANTALLA
-pantalla()
-
-
 #SELECCIÓN DE TAREA A EJECUTAR
 try:
     link = "siac" #Es solo para inicializar la variable
-    while link.lower() in lista_ac or link.lower() in formatos:
-        if db_existe:
-            print("Para descargar una lista de NewPipe, solo ingrese el número que le corresponde. De lo contrario solo ingrese una URL.")
-            print(num_cols*"=")
-        link = input("\nLista/canción a descargar ('s' para salir): ")
+    while link.lower() in lista_ac + formatos + ("h",):
+        #Inicia pantalla
+        pantalla()
+
+        link = input("\nIngresa la opción o URL de descarga (Salir: 's' | Ayuda: 'h'): ")
+        
+        #Si desea salir
         if link.upper() == "S":
             sys.exit()
+
+        #Si abre documento de ayuda
+        elif link.lower() == "h":
+            os.system("clear")
+            titulo_ayuda = "MANUAL DE USUARIO"
+            print(num_cols*"=" + "\n" + (num_cols-len(titulo_ayuda))//2*" " + titulo_ayuda + "\n" + num_cols*"=" + "\n")
+            with open("ayuda.txt", "r") as ayuda:
+                texto = ayuda.readlines()
+            for linea in texto:
+                print(linea)
+            print(num_cols*"=")
+            i = input("\nPresiona Enter para continuar...")
+
         #Si es un cambio de formato
         elif link.lower() in formatos:
             os.system("echo " + str(formatos.index(link.lower())) + " > settings/settings")
@@ -150,14 +165,12 @@ try:
                 os.system('echo "<=\n " > settings/actualizar')
             else:
                 os.system('echo " \n<=" > settings/actualizar')
-        pantalla()
 
-    carpeta = input("\nNombre de la carpeta ('s' para salir): ")
+    carpeta = input("----------\nNombre de la carpeta ('s' para salir): ")
     if carpeta.upper() == "S":
         sys.exit()
     elif carpeta == "":
-        print(num_cols*"-" + "\n")
-        i = input("Las pistas se guardarán directamente en tu carpeta de música debido a que no especificaste un nombre de carpeta. Deseas continuar (Sí: 's', Salir: Enter)? ")
+        i = input("----------\nLas pistas se guardarán directamente en tu carpeta de música debido a que no especificaste un nombre de carpeta. Estás de acuerdo (Sí: 's', Salir: Enter)? ")
         if i.upper() != "S":
             sys.exit()
     else:
