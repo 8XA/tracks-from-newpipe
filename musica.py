@@ -27,7 +27,9 @@ if not os.path.isdir("storage"):
 
 
 #FORMATOS
-formatos = ("mp3","m4a")
+formatos_video = ("mp4",)
+formatos_audio = ("mp3","m4a")
+formatos = formatos_audio + formatos_video
 if not os.path.isdir("settings"):
     os.system('mkdir settings')
 if not os.path.isfile("settings/settings"):
@@ -55,14 +57,14 @@ os.system("stty sane && clear")
 
 #DEFINE LO QUE VA A IMPRIMIRSE ANTES DE INGRESAR OPCIONES
 def pantalla():
-    global db_existe, num_codec, local_playlists, youtube_playlists, conexion, cursor, num_cols
+    global db_existe, num_codec, local_playlists, youtube_playlists, conexion, cursor, num_cols, modo
     os.system("clear")
 
 
     #IMPRIMIENDO TÍTULO
     print(num_cols*"=")
-    titulo = "<- DOWNPIPE 1.01 ->"
-    subtitulo = "Yet another youtube track downloader"
+    titulo = "<- DOWNPIPE 1.02 ->"
+    subtitulo = "Yet another track/video downloader"
     print(((num_cols-len(titulo))//2)*" " + titulo)
     print(((num_cols-len(subtitulo))//2)*" " + subtitulo)
     print(num_cols*"=")
@@ -124,6 +126,11 @@ def pantalla():
 
         if formatos[num_codec] == formatos[x]:
             selec_form = "<="
+            #Define el modo: descarga de audio, o descarga de video
+            if formatos[x] in formatos_audio:
+                modo = "--extract-audio --audio-format "
+            else:
+                modo = "--format "
         else:
             selec_form = ""
         print(formatos[x],selec_form,"\t\t" + actualizacion, selec_ac[:-1])
@@ -216,7 +223,7 @@ try:
 
     #DESCARGANDO PISTAS
     print("Descargando música...\nPara cancelar la descarga: Ctrl+c\n\n" + num_cols*"=")
-    os.system('youtube-dl --ignore-errors --extract-audio --audio-format ' + formatos[num_codec] + ' -o "storage/music/' + carpeta + '%(title)s.%(ext)s" ' + link)
+    os.system('youtube-dl --ignore-errors ' + modo + formatos[num_codec] + ' -o "storage/music/' + carpeta + '%(title)s.%(ext)s" ' + link)
     print(num_cols*"=")
     salir()
 

@@ -2,3 +2,4 @@ ENV
 storage
 settings
 __pycache__
+tracks-from-newpipe
