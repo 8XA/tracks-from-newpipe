@@ -1,27 +1,27 @@
 CAMBIAR FORMATOS:
 Solo audio:
-	- mp3: Para cambiar el formato de descarga a mp3, solo ingresa 'mp3' (sin comillas) y da Enter.
-	- m4a: Para cambiar el formato de descarga a m4a, solo ingresa 'm4a' (sin comillas) y da Enter.
+  - mp3: Para cambiar el formato de descarga a mp3, solo ingresa 'mp3' (sin comillas) y da Enter.
+  - m4a: Para cambiar el formato de descarga a m4a, solo ingresa 'm4a' (sin comillas) y da Enter.
 Audio y video:
-	- mp4: Para cambiar el formato de descarga a mp4, solo ingresa 'mp4' (sin comillas) y da Enter.
+  - mp4: Para cambiar el formato de descarga a mp4, solo ingresa 'mp4' (sin comillas) y da Enter.
 
 *Las configuraciones se mantienen, no necesitas ingresarlas en cada ocasión.
 ----------
 ACTUALIZACIONES DEL SCRIPT:
-Para detener la verificación de actualizaciónes del script al abrir Termux, ingresa 'noac' (sin comillas) y da Enter.
-Para activar la verificación de actualizaciónes del script al abrir Termux, ingresa 'siac' (sin comillas) y da Enter.
+  - Para detener la verificación de actualizaciónes del script al abrir Termux, ingresa 'noac' (sin comillas) y da Enter.
+  - Para activar la verificación de actualizaciónes del script al abrir Termux, ingresa 'siac' (sin comillas) y da Enter.
 
 *Las configuraciones se mantienen, no necesitas ingresarlas en cada ocasión.
 ----------
 VISUALIZAR LAS LISTAS DE NEWPIPE:
 Primero debes guardar la base de datos 'newpipe.db' en tu carpeta de Descargas. Debe necesariamente estar ahí. Para hacer esto:
-    - Abre NewPipe.
-    - Ve a opciones.
-    - Ajustes.
-    - Contenido.
-    - Exportar base de datos.
-    - Aceptar.
-    - Ve a la carpeta donde se guardó el comprimido y extrae el archivo 'newpipe.db' en la carpeta 'Descargas'.
+  - Abre NewPipe.
+  - Ve a opciones.
+  - Ajustes.
+  - Contenido.
+  - Exportar base de datos.
+  - Aceptar.
+  - Ve a la carpeta donde se guardó el comprimido y extrae el archivo 'newpipe.db' en la carpeta 'Descargas'.
 Reinicia Termux o refresca pantalla, ahora verás tus listas.
 ----------
 DESCARGAR LISTA DE NEWPIPE:
@@ -29,17 +29,17 @@ Las listas aparecerán numeradas. Para descargar una lista ingresa el número qu
 ----------
 DESCARGAR MIX DE YOUTUBE:
 Los mix de YouTube son personalizados para cada usuario, de manera que no puedes compartirlos como harías con una lista común. Para poder descargar un mix, debes descargar la información del mix personalizado para que el script pueda leerla. Para ello:
-	- Abre google chrome.
-	- Inicia sesión con la cuenta a la que pertenece el mix.
-	- Abre el mix con el mismo navegador y asegúrate de que puedes hacer scroll entre todos los videos que componen la lista, ya que normalmente cargan de 25 en 25.
-	- Descarga la página:
-		- Click en las opciones del navegador (3 puntos verticales).
-		- Click en el icono de descarga (Flecha apuntando hacia abajo, situada en la parte superior de las opciones).
-	- Opcional: Ahora puedes cerrar sesión y/o cerrar el navegador.
-	- Renombra el archivo descargado a 'yt' (sin comillas) y asegúrate que se localice en la carpeta de 'Descargas'.
-	- En el script ingresa la opción 'mix' (sin comillas) y da Enter.
-	- Te pedirá un nombre de carpeta. Ingrésalo.
-	- Comenzará la descarga.
+  - Abre google chrome.
+  - Inicia sesión con la cuenta a la que pertenece el mix.
+  - Abre el mix con el mismo navegador y asegúrate de que puedes hacer scroll entre todos los videos que componen la lista, ya que normalmente cargan de 25 en 25.
+  - Descarga la página, para ello:
+    - Click en las opciones del navegador (3 puntos verticales).
+    - Click en el icono de descarga (Flecha apuntando hacia abajo, situada en la parte superior de las opciones).
+  - Opcional: Ahora puedes cerrar sesión y/o cerrar el navegador.
+  - Renombra el archivo descargado a 'yt' (sin comillas) y asegúrate que se localice en la carpeta de 'Descargas'.
+  - En el script ingresa la opción 'mix' (sin comillas) y da Enter.
+  - Te pedirá un nombre de carpeta. Ingrésalo.
+  - Comenzará la descarga.
 ----------
 DESCARGAR MULTIMEDIA DE YOUTUBE Y OTROS SITIOS:
 Ingresa la URL de una lista de reproducción o bien la URL de un solo video y da Enter. Te pedirá un nombre de carpeta, después de esto procederá a descargar. Al descargar, encontrarás tu lista en la carpeta 'Música'.
