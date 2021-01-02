@@ -63,7 +63,7 @@ def pantalla():
 
     #IMPRIMIENDO TÍTULO
     print(num_cols*"=")
-    titulo = "<- DOWNPIPE 1.02.1 ->"
+    titulo = "<- DOWNPIPE 1.02.2 ->"
     subtitulo = "Yet another track/video downloader"
     print(((num_cols-len(titulo))//2)*" " + titulo)
     print(((num_cols-len(subtitulo))//2)*" " + subtitulo)
@@ -152,15 +152,7 @@ try:
 
         #Si abre documento de ayuda
         elif link.lower() == "h":
-            os.system("clear")
-            titulo_ayuda = "MANUAL DE USUARIO"
-            print(num_cols*"=" + "\n" + (num_cols-len(titulo_ayuda))//2*" " + titulo_ayuda + "\n" + num_cols*"=" + "\n")
-            with open("tracks-from-newpipe/ayuda.txt", "r") as ayuda:
-                texto = ayuda.readlines()
-            for linea in texto:
-                print(linea)
-            print(num_cols*"=")
-            i = input("\nPresiona Enter para continuar...")
+            os.system("xdg-open 'https://github.com/8XA/tracks-from-newpipe/wiki'")
 
         #Si es un cambio de formato
         elif link.lower() in formatos:
@@ -175,10 +167,16 @@ try:
 
         #Si hay que descargar un mix
         elif link.lower() == "mix":
-            with open("storage/downloads/yt", "rb") as t:
-                texto = str(t.read())
-            watch = list(set([texto[x:x+23] for x in range(len(texto)) if texto[x:x+8] == "watch?v="]))
-            link =  "' '".join(["https://www.youtube.com/" + x[:-4] for x in watch if x[19:] == "&amp"])
+            try:
+                with open("storage/downloads/yt", "rb") as t:
+                    texto = str(t.read())
+                watch = list(set([texto[x:x+23] for x in range(len(texto)) if texto[x:x+8] == "watch?v="]))
+                link =  "' '".join(["https://www.youtube.com/" + x[:-4] for x in watch if x[19:] == "&amp"])
+            except:
+                link = "h"
+                os.system("xdg-open 'https://github.com/8XA/tracks-from-newpipe/wiki/Descargar-lista-mix-de-YouTube'")
+                i = input("\nPara descargar un mix correctamente, consulta la sección del manual que refiere a ello. Presiona Enter para continuar.")
+
             
     #Nombre de carpeta
     carpeta = input("----------\nNombre de la carpeta ('s' para salir): ")
