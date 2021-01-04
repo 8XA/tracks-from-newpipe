@@ -1,3 +1,5 @@
 ENV 
 storage
-c.txt
+settings
+__pycache__
+tracks-from-newpipe
