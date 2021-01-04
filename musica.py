@@ -36,6 +36,13 @@ if not os.path.isfile("settings/settings"):
     os.system('echo 0 > settings/settings')
 
 
+#DETERMINANDO EL NÚMERO DE CARACTERES POR LÍNEA
+screen = curses.initscr() 
+num_cols = screen.getmaxyx()[1]
+curses.endwin()
+os.system("stty sane && clear")
+
+
 #VERIFICANDO ACTUALIZACIONES DEL SCRIPT
 lista_ac = ("siac","noac") #Actualizar, o no actualizar
 if not os.path.isfile('settings/actualizar'):
@@ -43,16 +50,9 @@ if not os.path.isfile('settings/actualizar'):
 with open("settings/actualizar") as ac:
     selec_actualizacion = ac.readlines()
 if selec_actualizacion[0][:-1] == "<=": 
-    if update() == 1:
+    if update(num_cols) == 1:
         print("Debes reiniciar Termux.")
         salir()
-
-
-#DETERMINANDO EL NÚMERO DE CARACTERES POR LÍNEA
-screen = curses.initscr() 
-num_cols = screen.getmaxyx()[1]
-curses.endwin()
-os.system("stty sane && clear")
 
 
 #DEFINE LO QUE VA A IMPRIMIRSE ANTES DE INGRESAR OPCIONES
@@ -63,7 +63,7 @@ def pantalla():
 
     #IMPRIMIENDO TÍTULO
     print(num_cols*"=")
-    titulo = "<- DOWNPIPE 1.02.2 ->"
+    titulo = "<- DOWNPIPE 1.02.3 ->"
     subtitulo = "Yet another track/video downloader"
     print(((num_cols-len(titulo))//2)*" " + titulo)
     print(((num_cols-len(subtitulo))//2)*" " + subtitulo)
