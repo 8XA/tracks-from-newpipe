@@ -1,22 +1,27 @@
 #!/bin/env python
 
 import os, time
+from modulos.corrector import corrector
 
 def update(num_cols):
+    #Acciones por limpieza de versiones anteriores
+    corrector()
+
+    rabs = '/data/data/com.termux/files/usr/share/downpipe/tracks-from-newpipe/'
     os.system("clear")
     print("Verificando actualizaciones de script...\n")
-    remoto = os.popen('cd tracks-from-newpipe && git fetch origin master && git checkout remotes/origin/master').read()
-    local = os.popen('cd tracks-from-newpipe && git checkout master').read()
+    remoto = os.popen('cd '+ rabs + ' && git fetch origin master && git checkout remotes/origin/master').read()
+    local = os.popen('cd ' + rabs + ' && git checkout master').read()
     if "commit" in local:
         print("Actualizando script...\n")
         os.system('rm -rf update')
         clonar = os.system('git clone --branch master --single-branch https://github.com/8XA/tracks-from-newpipe.git update')
         if clonar == 0:
-            os.system('rm -rf tracks-from-newpipe')
-            os.system('mv update tracks-from-newpipe && clear')
+            os.system('rm -rf ' + rabs[:-1])
+            os.system('mv update ' + rabs[:-1] + ' && clear')
             print(((num_cols-22)//2)*" " + "ACTUALIZACIÓN COMPLETA")
             print(num_cols*"=")
-            with open("tracks-from-newpipe/novedades","r") as nov:
+            with open(rabs + "/novedades","r") as nov:
                 novedades = nov.readlines()
             for line in novedades:
                 print(line[:-1])
