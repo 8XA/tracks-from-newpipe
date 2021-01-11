@@ -1,6 +1,12 @@
 #!/bin/env python
 import os, curses, sqlite3, string, sys
-from update import update
+from modulos.update import update
+from modulos.filemodify import inicio
+from modulos.confscreen import confscreen
+
+
+#Ruta absoluta:
+rutaInterna = '/data/data/com.termux/files/usr/share/downpipe/'
 
 
 #FUNCIÓN SALIR
@@ -19,37 +25,48 @@ def salir():
 
 
 #VERIFICA EL PERMISO DE ALMACENAMIENTO
-if not os.path.isdir("storage"):
+storage = "/data/data/com.termux/files/home/storage"
+if not os.path.isdir(storage):
     os.popen("termux-setup-storage")
-    if not os.path.isdir("storage"):
+    if not os.path.isdir(storage):
         print("Los permisos de almacenamiento son necesarios para guardar las descargas.")
         salir()
 
 
-#FORMATOS
-formatos_video = ("mp4",)
-formatos_audio = ("mp3","m4a")
-formatos = formatos_audio + formatos_video
-if not os.path.isdir("settings"):
-    os.system('mkdir settings')
-if not os.path.isfile("settings/settings"):
-    os.system('echo 0 > settings/settings')
-
-
 #DETERMINANDO EL NÚMERO DE CARACTERES POR LÍNEA
-screen = curses.initscr() 
-num_cols = screen.getmaxyx()[1]
-curses.endwin()
-os.system("stty sane && clear")
+def numcols():
+    screen = curses.initscr() 
+    num_cols = screen.getmaxyx()[1]
+    curses.endwin()
+    os.system("stty sane && clear")
+    return num_cols
+num_cols = numcols()
+
+
+#INICIO
+if not os.path.isdir(rutaInterna):
+    os.system('mkdir ' + rutaInterna)
+if not os.path.isdir(rutaInterna + 'settings'):
+    os.system('mkdir ' + rutaInterna + 'settings')
+if not os.path.isfile(rutaInterna + "settings/INICIO"):
+    os.system('echo 0 > ' + rutaInterna + 'settings/INICIO')
+
+
+#FORMATOS
+formatos_audio = ("mp3","m4a")
+formatos_video = ("mp4",)
+formatos = formatos_audio + formatos_video
+if not os.path.isfile(rutaInterna + "settings/FORMATO"):
+    os.system('echo 0 > ' + rutaInterna + 'settings/FORMATO')
 
 
 #VERIFICANDO ACTUALIZACIONES DEL SCRIPT
 lista_ac = ("siac","noac") #Actualizar, o no actualizar
-if not os.path.isfile('settings/actualizar'):
-    os.system('echo "<=\n " > settings/actualizar')
-with open("settings/actualizar") as ac:
-    selec_actualizacion = ac.readlines()
-if selec_actualizacion[0][:-1] == "<=": 
+if not os.path.isfile(rutaInterna + 'settings/SCRIPT_UPDATES'):
+    os.system('echo 0 > ' + rutaInterna + 'settings/SCRIPT_UPDATES')
+with open(rutaInterna + "settings/SCRIPT_UPDATES") as f:
+    actualizar = int(f.readlines()[0][:-1])
+if actualizar == 0: 
     if update(num_cols) == 1:
         print("Debes reiniciar Termux.")
         salir()
@@ -57,13 +74,14 @@ if selec_actualizacion[0][:-1] == "<=":
 
 #DEFINE LO QUE VA A IMPRIMIRSE ANTES DE INGRESAR OPCIONES
 def pantalla():
-    global db_existe, num_codec, local_playlists, youtube_playlists, conexion, cursor, num_cols, modo
+    global db_existe, n_formato, local_playlists, youtube_playlists, conexion, cursor, num_cols, modo, lista_ac, storage
+    num_cols = numcols()
     os.system("clear")
 
 
     #IMPRIMIENDO TÍTULO
     print(num_cols*"=")
-    titulo = "<- DOWNPIPE 1.02.3 ->"
+    titulo = "<- DOWNPIPE 1.02.4 ->"
     subtitulo = "Yet another track/video downloader"
     print(((num_cols-len(titulo))//2)*" " + titulo)
     print(((num_cols-len(subtitulo))//2)*" " + subtitulo)
@@ -71,7 +89,7 @@ def pantalla():
 
 
     #EXPLORACIÓN E IMPRESIÓN DE LISTAS DE LA BASE DE DATOS
-    db = "storage/downloads/newpipe.db"
+    db = storage + "/downloads/newpipe.db"
     try:
         #Abriendo la base de datos
         if os.path.isfile(db):
@@ -112,35 +130,32 @@ def pantalla():
 
 
     #IMPRIME CONFIGURACIONES
-    with open("settings/settings") as f:
-        num_codec = int(f.readlines()[0])
-    with open("settings/actualizar") as ac:
-        selec_actualizacion = ac.readlines()
-    print("FORMATOS\tSCRIPT UPDATES")
-    for x in range(len(formatos)):
-        if x <= 1:
-            actualizacion = lista_ac[x]
-            selec_ac = selec_actualizacion[x]
-        else:
-            actualizacion, selec_ac = "",""
+    with open(rutaInterna + "settings/SCRIPT_UPDATES") as f:
+        n_updates = int(f.readlines()[0][:-1])
+    with open(rutaInterna + "settings/FORMATO") as f:
+        n_formato = int(f.readlines()[0][:-1])
+    with open(rutaInterna + "settings/INICIO") as f:
+        n_inicio = int(f.readlines()[0][:-1])
 
-        if formatos[num_codec] == formatos[x]:
-            selec_form = "<="
-            #Define el modo: descarga de audio, o descarga de video
-            if formatos[x] in formatos_audio:
-                modo = "--extract-audio --audio-format "
-            else:
-                modo = "--format "
-        else:
-            selec_form = ""
-        print(formatos[x],selec_form,"\t\t" + actualizacion, selec_ac[:-1])
-    print(num_cols*"=")
+    confscreenUpdates = [n_updates + 1, "SCRIPT UPDATES"] + list(lista_ac)
+    confscreenFormatos = [n_formato + 1, "FORMATO"] + list(formatos)
+    confscreenInicio = [n_inicio + 1, "INICIO", "aut", "com"]
+    listaConfScreen = [confscreenUpdates, confscreenFormatos, confscreenInicio]
+
+    confscreen(num_cols, listaConfScreen)
+
+
+    #MODO DE DESCARGA (AUDIO O VIDEO)
+    if n_formato < 2:
+        modo = "--extract-audio --audio-format "
+    else:
+        modo = "--format "
 
 
 #SELECCIÓN DE TAREA A EJECUTAR
 try:
     link = "siac" #Es solo para inicializar la variable
-    while link.lower() in lista_ac + formatos + ("h",):
+    while link.lower() in lista_ac + formatos + ("h", "aut", "com",):
         #Inicia pantalla
         pantalla()
 
@@ -154,21 +169,23 @@ try:
         elif link.lower() == "h":
             os.system("xdg-open 'https://github.com/8XA/tracks-from-newpipe/wiki'")
 
+        #Si desea cambiar el modo de inicio
+        elif link.lower() == 'aut' or link.lower() == 'com':
+            if inicio(link, num_cols) == 0:
+                os.system("echo " + str(('aut', 'com').index(link.lower())) + " > " + rutaInterna + "settings/INICIO")
+
         #Si es un cambio de formato
         elif link.lower() in formatos:
-            os.system("echo " + str(formatos.index(link.lower())) + " > settings/settings")
+            os.system("echo " + str(formatos.index(link.lower())) + " > " + rutaInterna + "settings/FORMATO")
 
         #Si es un cambio en la actualizacion
         elif link.lower() in lista_ac:
-            if link.lower() == "siac":
-                os.system('echo "<=\n " > settings/actualizar')
-            else:
-                os.system('echo " \n<=" > settings/actualizar')
+            os.system("echo " + str(lista_ac.index(link.lower())) + " > " + rutaInterna + 'settings/SCRIPT_UPDATES')
 
         #Si hay que descargar un mix
         elif link.lower() == "mix":
             try:
-                with open("storage/downloads/yt", "rb") as t:
+                with open(storage + "/downloads/yt", "rb") as t:
                     texto = str(t.read())
                 watch = list(set([texto[x:x+23] for x in range(len(texto)) if texto[x:x+8] == "watch?v="]))
                 link =  "' '".join(["https://www.youtube.com/" + x[:-4] for x in watch if x[19:] == "&amp"])
@@ -192,7 +209,7 @@ try:
     
     #VERIFICANDO QUE YOUTUBE-DL Y PIP ESTÉN ACTUALIZADOS
     os.system("clear")
-    print("Verificando actualizaciones por cambios en la plataforma de youtube...\n\n")
+    print("Verificando actualizaciones por cambios y/o compatibilidad en la plataforma...\n\n")
     os.system('pip install --upgrade pip')
     os.system('pip install --upgrade youtube-dl')
     os.system("clear")
@@ -229,7 +246,7 @@ try:
 
     #DESCARGANDO PISTAS
     print("Descargando música...\nPara cancelar la descarga: Ctrl+c\n\n" + num_cols*"=")
-    os.system('youtube-dl --ignore-errors ' + modo + formatos[num_codec] + ' -o "storage/music/' + carpeta + '%(title)s.%(ext)s" ' + link)
+    os.system('youtube-dl --ignore-errors ' + modo + formatos[n_formato] + ' -o ' + '"' + storage + '/music/' + carpeta + '%(title)s.%(ext)s" ' + link)
     print(num_cols*"=")
     salir()
 
