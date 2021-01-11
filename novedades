@@ -1,5 +1,14 @@
 Novedades:
 
-- Mejora en el manual de usuario.
-- Optimización del módulo de actualización.
-- Descripción de mejoras tras cada actualización.
+- Reubicación de los archivos de configuración.
+- Mejor organización en los componentes del script.
+- Mejora de la vista en la sección de configuraciones.
+- Ahora admite cambiar entre inicio automático e inicio por comando.
+- Recalcula las dimensiones de la pantalla para una mejor visualización tras cada ingreso de opciones.
+
+Características previas:
+
+- Descarga listas o videos de YouTube, Facebook y más sitios de videos.
+- Descarga listas locales de NewPipe
+- Descarga mix personalizados de YouTube.
+
