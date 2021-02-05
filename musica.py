@@ -1,8 +1,9 @@
 #!/bin/env python
-import os, curses, sqlite3, string, sys
+import os, curses, sqlite3, string, sys, subprocess, readline
 from modulos.update import update
 from modulos.filemodify import inicio
 from modulos.confscreen import confscreen
+from getpass import getpass
 
 
 #Ruta absoluta:
@@ -81,7 +82,7 @@ def pantalla():
 
     #IMPRIMIENDO TÍTULO
     print(num_cols*"=")
-    titulo = "<- DOWNPIPE 1.02.4 ->"
+    titulo = "<- DOWNPIPE v1.03.0 ->"
     subtitulo = "Yet another track/video downloader"
     print(((num_cols-len(titulo))//2)*" " + titulo)
     print(((num_cols-len(subtitulo))//2)*" " + subtitulo)
@@ -246,10 +247,31 @@ try:
 
     #DESCARGANDO PISTAS
     print("Descargando música...\nPara cancelar la descarga: Ctrl+c\n\n" + num_cols*"=")
-    os.system('youtube-dl --ignore-errors ' + modo + formatos[n_formato] + ' -o ' + '"' + storage + '/music/' + carpeta + '%(title)s.%(ext)s" ' + link)
+    credenciales, completo = "", False
+    while completo == False:
+
+        coma = 'youtube-dl --ignore-errors ' + credenciales + modo + formatos[n_formato] + ' -o ' + '"' + storage + '/music/' + carpeta + '%(title)s.%(ext)s" ' + link
+        comando = subprocess.run(coma, stderr=subprocess.PIPE, shell=True)
+
+        if "This video is only available for registered users" in str(comando.stderr) and "facebook" in link.lower():
+            os.system("clear")
+            print(num_cols*"=")
+            print("Para descargar videos privados de facebook, debes ingresar tus credenciales (usuario y contraseña). La configuración de autenticación en dos pasos puede evitar que se acceda con exito, desactívala e ingresa tus credenciales.")
+            print(num_cols*"=")
+            i = input("Deseas continuar ('s'|'n'): ")
+            if i.lower() == "s":
+                os.system("clear")
+                usuario = input("Usuario de facebook: ")
+                password = getpass("Contraseña: ")
+            else:
+                salir()
+            print(num_cols*"=")
+            credenciales = "--username " + usuario + " --password " + password + " "
+        else:
+            completo = True
+
     print(num_cols*"=")
     salir()
-
 
 except Exception as e:
     os.system("clear")

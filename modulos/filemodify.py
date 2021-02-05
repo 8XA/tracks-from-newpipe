@@ -28,7 +28,7 @@ def inicio(operacion, ancho):
         print(ancho * "=" + "\n" + ((ancho-10)//2)*" " + "IMPORTANTE:")
         print("=" * ancho + "\n")
         print("Acabas de seleccionar 'Inicio por comando'. Con esta opción, deberás ingresar el comando:")
-        print('\n' + " " * ((ancho - 8)//2) + 'downpipe\n')
+        print('\n' + " " * ((ancho - 8)//2) + 'dp\n')
         print("en el siguiente inicio de Termux si quieres ejecutar el script.\n")
         print("=" * ancho + "\n")
         i = input("Deseas confirmar esta operación (Sí: s | No: Enter)?: ")
@@ -36,12 +36,15 @@ def inicio(operacion, ancho):
             return 1
 
     global bashrc
+    #COMANDO2 Y AUTOMÁTICO2 SON LOS RENGLONES MÁS ACTUALES
     comando = "alias downpipe='python /data/data/com.termux/files/usr/share/downpipe/tracks-from-newpipe/musica.py'"
+    comando2 = "alias dp='exec python /data/data/com.termux/files/usr/share/downpipe/tracks-from-newpipe/musica.py'"
     automatico_old = "python tracks-from-newpipe/musica.py"
     automatico = "python /data/data/com.termux/files/usr/share/downpipe/tracks-from-newpipe/musica.py"
+    automatico2 = "exec python /data/data/com.termux/files/usr/share/downpipe/tracks-from-newpipe/musica.py"
 
     #Lineas a editar (agregar o eliminar, según el caso)
-    customConfigs = [comando, automatico_old, "clear", automatico, "exit"]
+    customConfigs = [comando, comando2, automatico_old, "clear", automatico, automatico2, "exit"]
     
     #Lee el bashrc
     with open(bashrc, "r") as file:
@@ -56,17 +59,16 @@ def inicio(operacion, ancho):
     
     if operacion.lower() == 'aut':
         #Agrega configuración de inicio automatico al bash temporal
-        for renglon in customConfigs[2:]:
-            agregar(renglon)
+        agregar(automatico2)
 
     #Agrega configuración de inicio por comando al bash temporal
     elif operacion.lower() == 'com':
-        agregar(comando)
+        agregar(comando2)
     
     #Limpia los comandos que se hayan agregado
     elif operacion.lower() == 'lim':
         pass
-
+ 
     #Elimina temporal generado
     else:
         os.system('rm ' + bashrc[:-7] + 'tmp &>' + log)
