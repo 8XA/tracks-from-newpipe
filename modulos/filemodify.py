@@ -28,7 +28,7 @@ def inicio(operacion, ancho):
         print(ancho * "=" + "\n" + ((ancho-10)//2)*" " + "IMPORTANTE:")
         print("=" * ancho + "\n")
         print("Acabas de seleccionar 'Inicio por comando'. Con esta opción, deberás ingresar el comando:")
-        print('\n' + " " * ((ancho - 8)//2) + 'dp\n')
+        print('\n' + " " * ((ancho - 8)//2) + "'dp'\n")
         print("en el siguiente inicio de Termux si quieres ejecutar el script.\n")
         print("=" * ancho + "\n")
         i = input("Deseas confirmar esta operación (Sí: s | No: Enter)?: ")

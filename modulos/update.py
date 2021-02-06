@@ -1,21 +1,18 @@
 #!/bin/env python
 
 import os, time
-from modulos.corrector import corrector
 
 def update(num_cols):
-    #Acciones por limpieza de versiones anteriores
-    corrector()
-
     rabs = '/data/data/com.termux/files/usr/share/downpipe/tracks-from-newpipe/'
+    rama = 'master'
     os.system("clear")
     print("Verificando actualizaciones de script...\n")
-    remoto = os.popen('cd '+ rabs + ' && git fetch origin master && git checkout remotes/origin/master').read()
-    local = os.popen('cd ' + rabs + ' && git checkout master').read()
+    remoto = os.popen('cd '+ rabs + ' && git fetch origin ' + rama + ' && git checkout remotes/origin/' + rama).read()
+    local = os.popen('cd ' + rabs + ' && git checkout ' + rama).read()
     if "commit" in local:
         print("Actualizando script...\n")
         os.system('rm -rf update')
-        clonar = os.system('git clone --branch master --single-branch https://github.com/8XA/tracks-from-newpipe.git update')
+        clonar = os.system('git clone --branch ' + rama + ' --single-branch https://github.com/8XA/tracks-from-newpipe.git update')
         if clonar == 0:
             os.system('rm -rf ' + rabs[:-1])
             os.system('mv update ' + rabs[:-1] + ' && clear')

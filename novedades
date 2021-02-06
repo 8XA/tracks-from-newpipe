@@ -1,6 +1,8 @@
 Novedades:
 
-- Comando de ejecución mas corto.
-- Mejora la finalización del script.
-- Permite logueo de facebook para descargar videos privados.
-- Las flechas pueden utilizarse.
+- Permite seleccionar ruta de destino.
+- Mejora estética en la selección de carpeta.
+- Mejora el sistema de cambio de versiones.
+- Instalador puede ejecutarse desde cualquier carpeta.
+
+*La actualización finalizará en el próximo inicio.
